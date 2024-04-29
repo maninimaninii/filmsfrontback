@@ -14,6 +14,15 @@ class Film{
             callback(results);
         });
     }
+
+    static getFilmById(id, callback){
+        pool.query('SELECT * FROM films WHERE id = ?', [id], (error, results, fields) => {
+            if (error) throw error;
+            callback(results[0]); 
+          });
+    }
+
+    
     
 }
 

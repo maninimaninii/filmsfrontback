@@ -1,33 +1,46 @@
-import React from 'react'
-import './CSS/details.css'
-import all_films from '../Components/Assets/all_films';
-import all_series from '../Components/Assets/all_series';
-import { useParams } from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import './CSS/details.css';
+import { useParams } from 'react-router-dom';
 import { Entite } from '../Components/Entite/Entite';
 import { Suggestions } from '../Components/Suggestions/Suggestions';
 import { Interractions } from '../Components/Interactions/Interractions';
 
 export const Details = () => {
-    const {entiteId, category} = useParams();
-    let entite;
+    const { entiteId, category } = useParams();
+    const [entite, setEntite] = useState(null); 
 
-    if (category === 'film') {
-        entite = all_films.find((film) => film.id === parseInt(entiteId));
-    } else {
-        entite = all_series.find((serie) => serie.id === parseInt(entiteId));
-    }
+    useEffect(() => {
 
+        const fetchEntiteDetails = async () => {
+            try {
+                const response = await fetch(`http://localhost:3000/api/films/${entiteId}`);
+                if (!response.ok) {
+                    throw new Error('Erreur lors de la récupération des détails de l\'entité');
+                }
+                const data = await response.json();
+                setEntite(data);
+            } catch (error) {
+                console.error(error);
+                
+            }
+        };
 
-  return (
-    <div> 
-      <div className="haut">
-        <Entite entite={entite} />
-        <div className="interractions">
-          <Interractions entite={entite}/>
-          </div>
-      </div>
-          
-          <Suggestions/>
-    </div>
-  )
-}
+        fetchEntiteDetails(); 
+    }, [entiteId, category]);
+
+    return (
+        <div> 
+            {entite ? ( 
+                <div className="haut">
+                    <Entite entite={entite} />
+                    <div className="interractions">
+                        <Interractions entite={entite}/>
+                    </div>
+                </div>
+            ) : (
+                <p>Chargement en cours...</p> 
+            )}
+            <Suggestions/>
+        </div>
+    );
+};

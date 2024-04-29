@@ -26,7 +26,7 @@ export const ListeCat = (props) => {
   }, [props.category]);
 
   return (
-    <div>
+    <div className='listecat'>
       <div className='listeitems'>
         {films.map((film) => (
           <Item key={film.id} title={film.title} category={film.category} image={film.image_url} />

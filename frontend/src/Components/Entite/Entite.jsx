@@ -6,7 +6,7 @@ export const Entite = (props) => {
   return (
     <div className='entite'>
         <div className="imggauche">
-        <img src={entite.image}/>
+        <img src={entite.image_url}/>
         </div>
         <div className="droite">
         <h1> {entite.title}</h1>

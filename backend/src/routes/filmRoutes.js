@@ -5,5 +5,6 @@ const filmController = require('../Controllers/filmController');
 
 router.get('/films', filmController.getAllFilms);
 router.get('/series', filmController.getAllSeries);
+router.get('/films/:id', filmController.getEntiteById);
 
 module.exports = router;
