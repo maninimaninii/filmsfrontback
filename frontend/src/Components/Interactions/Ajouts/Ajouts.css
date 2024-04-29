@@ -1,0 +1,24 @@
+.ajouts{
+    display : flex;
+    justify-content: space-around;
+}
+.ajout{
+    display: flex;
+    flex-direction: column;
+    color: #99aabb;
+}
+.ajout p{
+    font-size: 20px;
+}
+
+.imag {
+  
+    cursor: pointer;
+    font-size: 55px;
+    color: #99aabb;
+    transition: color 0.2s ease-in-out;
+  }
+
+  .imag.filled{
+    color: greenyellow;
+  }

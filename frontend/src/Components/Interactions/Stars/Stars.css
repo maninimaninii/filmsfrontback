@@ -1,0 +1,16 @@
+.star {
+  
+    cursor: pointer;
+    font-size: 55px;
+    color: #99aabb;
+    transition: color 0.2s ease-in-out;
+  }
+  
+  .star:hover {
+    color: #99aabb;
+  }
+  
+  .star.filled {
+    color: #99aabb;
+  }
+  

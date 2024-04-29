@@ -1,0 +1,38 @@
+.entite{
+    display: flex;
+    margin-top: 100px;
+    margin-left: 18px;
+}
+
+
+
+.imggauche{
+    display: flex;
+}
+
+.imggauche img{
+    width : 280px;
+    margin-top: 20px;
+}
+
+.droite{
+    margin-left: 70px;
+    display: flex;
+    flex-direction: column;
+}
+
+.droite hr{
+    width : 350px;
+    margin-left: 0;
+}
+
+.droite h1{
+    font-size: 60px;
+    color: hsl(0, 0%, 80%);
+}
+
+.droite p{
+    font-size: 35px;
+    padding-right: 25px;
+    color: hsl(0, 0%, 80%);
+}

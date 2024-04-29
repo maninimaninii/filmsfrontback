@@ -1,0 +1,27 @@
+.interractions {
+    text-align: center;
+    background-color: #202830;
+    min-height: min-content; 
+    margin-top: 150px;
+    padding: 10px; 
+    box-sizing: border-box; 
+}
+
+hr{
+    margin-top: 18px;
+}
+
+.enbas{
+    font-size: 35px;
+    color: #99aabb;
+    cursor: pointer;
+    height: max-content;
+    padding: 20px;
+}
+
+.enbas:hover{
+    background-color: #99aabb;
+    color: white;
+    transition : 0.4s;
+   
+}
