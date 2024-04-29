@@ -1,26 +1,25 @@
-import React from 'react'
+// Dans votre composant React ListeCat
+import React, { useState, useEffect } from 'react';
 import './CSS/cat.css';
-import all_films from '../Components/Assets/all_films'
-import all_series from '../Components/Assets/all_series'
-import { Item } from '../Components/Item/Item'
-
+import { Item } from '../Components/Item/Item';
 
 export const ListeCat = (props) => {
-    let all;
+  const [films, setFilms] = useState([]);
 
-    if(props.category === 'films'){
-         all = all_films;
-    }else{
-         all = all_series;
+  useEffect(() => {
+    fetch('http://localhost:3000/api/films')
+      .then(response => response.json())
+      .then(data => setFilms(data))
+      .catch(error => console.error('Erreur lors de la récupération des films:', error));
+  }, []);
 
-    }
   return (
     <div>
-        <div className='listeitems'>
-            {all.map((film) => (
-                <Item key={film.id} title={film.title} category={film.category} image={film.image} />
-            ))}            
-        </div>
+      <div className='listeitems'>
+        {films.map((film) => (
+          <Item key={film.id} title={film.title} category={film.category} image={film.image_url} />
+        ))}
+      </div>
     </div>
-  )
-}
+  );
+};
