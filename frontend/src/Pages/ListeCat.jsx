@@ -1,4 +1,3 @@
-// Dans votre composant React ListeCat
 import React, { useState, useEffect } from 'react';
 import './CSS/cat.css';
 import { Item } from '../Components/Item/Item';
@@ -7,11 +6,24 @@ export const ListeCat = (props) => {
   const [films, setFilms] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:3000/api/films')
-      .then(response => response.json())
-      .then(data => setFilms(data))
-      .catch(error => console.error('Erreur lors de la récupération des films:', error));
-  }, []);
+    const fetchData = async () => {
+      try {
+        let url;
+        if (props.category === 'films') {
+          url = 'http://localhost:3000/api/films';
+        } else {
+          url = 'http://localhost:3000/api/series';
+        }
+        const response = await fetch(url);
+        const data = await response.json();
+        setFilms(data);
+      } catch (error) {
+        console.error('Erreur lors de la récupération des données:', error);
+      }
+    };
+
+    fetchData();
+  }, [props.category]);
 
   return (
     <div>
