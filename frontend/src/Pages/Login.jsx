@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './CSS/Login.css';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
-      const response = await fetch('http://localhost:3000//api/login', { 
+      const response = await fetch('http://localhost:3000/api/login', { 
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -18,7 +18,7 @@ export const Login = () => {
         body: JSON.stringify({ email, password }),
       });
       if (response.ok) {
-        history.push('/'); 
+        navigate('/'); 
       } else {
         setError('Mot de passe ou email incorrect');
       }

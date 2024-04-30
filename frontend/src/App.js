@@ -8,6 +8,7 @@ import { Details } from './Pages/Details';
 import { WatchList } from './Pages/WatchList';
 import { Login } from './Pages/Login';
 import { SignUp } from './Pages/Signup';
+import Test from './Pages/test';
 
 
 function App(){
@@ -24,6 +25,7 @@ function App(){
     <Route path='/watchlist' element={<WatchList/>}/>
     <Route path='/login' element={<Login/>}/>
     <Route path='/register' element={<SignUp/>}/>
+    <Route path='/test' element={<Test/>}/>
     </Routes>
     <Footer/>
     </BrowserRouter>

@@ -1,15 +1,23 @@
-const User = require('../models/userModel')
+const User = require('../models/usermodel');
 
 exports.createUser = (req, res) =>{
     const userData = req.body;
     User.createUser(userData, (result) =>{
-        res.JSON(result);
+        res.json(result);
     });
 }
 
 
 
-exports.loginUser = (req, res) => {
+exports.getWatchList = (req, res) => {
+    const {id} = req.session.user.id;
+    User.getWatchList(id, (film) =>{
+      res.json(film);
+    })
+  }
+
+
+  exports.loginUser = (req, res) => {
     const { email, password } = req.body;
     User.getUserByEmail(email, (user) => {
       if (!user) {
@@ -19,24 +27,17 @@ exports.loginUser = (req, res) => {
       } else {
         req.session.user = user;
         res.json({ message: 'Connecté avec succès' });
+        console.log(req.session.user.id);
       }
     });
   };
-  
 
 
-exports.addToWatchList = (req, res) =>{
+  exports.addToWatchList = (req, res) =>{
     const UserId = req.session.user.id;
     const{filmId} = req.body;
     User.addtToWatchList(userId, filmId, (result)=>{
-        res.JSON(result);
+        res.json(result);
     });
 }
 
-
-exports.getWatchList = (req, res) =>{
-    const userId = req.session.user.id;
-    User.getWatchList(userId, (watchlist) =>{
-        res.JSON(watchlist);
-    });
-}
