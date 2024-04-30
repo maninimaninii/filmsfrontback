@@ -1,3 +1,14 @@
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    name VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    watchlist TEXT -- Tableau d'IDs des films stockés sous forme de chaîne JSON
+);
+
+
+
+
 INSERT INTO films (title, category, image_url, synopsis)
 VALUES 
 ('Inception', 'film', 'https://cdn.cinematerial.com/p/136x/7uwb4va7/inception-movie-poster-sm.jpg?v=1456797089', 'Un voleur spécialisé dans l\'extraction d\'informations à travers les rêves est chargé d\'une mission d\'inception - implanter une idée dans l\'esprit d\'une personne.'),

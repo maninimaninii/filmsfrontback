@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const cors = require('cors');
+const session = require('express-session');
 const filmRoutes = require('./routes/filmRoutes');
 
 app.use((req, res, next) => {
@@ -9,6 +9,13 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
     next();
   });
+
+
+app.use(session({
+  secret: 'many', 
+  resave: false,
+  saveUninitialized: false
+}));
 
 
 app.use(express.json());
