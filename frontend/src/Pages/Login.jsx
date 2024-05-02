@@ -18,6 +18,9 @@ export const Login = () => {
         body: JSON.stringify({ email, password }),
       });
       if (response.ok) {
+        const data = await response.json();
+        const token = data.token; 
+        localStorage.setItem('token', token); 
         navigate('/'); 
       } else {
         setError('Mot de passe ou email incorrect');

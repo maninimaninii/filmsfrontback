@@ -21,8 +21,6 @@ export const Navbar = () => {
                     <li className='dm'><Link to='/register'>S'inscrire</Link></li>
                     <hr/>
                     <li className='dm'><Link to='/watchlist'>WatchList</Link></li>
-                    <hr/>
-                    <li className='dm'><Link to='/test'>test</Link></li>
                 </ul>
             </li>
             <li className='reste' onClick={()=> {setMenu('Acceuil')}}> <Link to='/'>Accueil</Link>{menu==='Acceuil'?<hr/>:<></>}</li>

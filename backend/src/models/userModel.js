@@ -1,41 +1,68 @@
+
+
 const pool = require('../pool');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
-class User{
-    
-
-  static createUser(userData, callback){
-    const { email, name, password } = userData;
-    const watchlist = '[]'; 
-    console.log(userData)
-    pool.query(
-        'INSERT INTO users (email, name, password, watchlist) VALUES (?, ?, ?, ?)',
-        [email, name, password, watchlist],
-        (error, results, fields) => {
-            if (error) throw error;
-            callback(results);
-        }
-    );
-}
+class User {
 
 
+    static createUser(userData, callback) {
+        const { email, name, password } = userData;
+        bcrypt.hash(password, 10, (error, hash) => {
+            if (error) {
+                throw error;
+            } else {
+                const watchlist = '[]';
+                pool.query(
+                    'INSERT INTO users (email, name, password, watchlist) VALUES (?, ?, ?, ?)',
+                    [email, name, hash, watchlist],
+                    (error, results, fields) => {
+                        if (error) throw error;
+                        callback(results);
+                    }
+                );
+            }
+        });
+    }
 
-static getWatchList(id, callback){
-  pool.query('SELECT watchlist FROM users WHERE id = ?', [id], (error, results, fields) => {
+    static loginUser(email, password, callback) {
+        pool.query(
+            'SELECT * FROM users WHERE email = ?',
+            [email],
+            (error, results, fields) => {
+                if (error) throw error;
+                if (results.length === 0) {
+                    callback({ error: 'Utilisateur non trouvé' });
+                } else {
+                    const user = results[0];
+                    bcrypt.compare(password, user.password, (error, isValid) => {
+                        if (error) {
+                            throw error;
+                        } else if (!isValid) {
+                            callback({ error: 'Mot de passe incorrect' });
+                        } else {
+                            const token = jwt.sign(
+                                { userId: user.id },
+                                'RANDOM_TOKEN_SECRET',
+                                { expiresIn: '24h' }
+                            );
+                            callback({ userId: user.id, token });
+                            console.log('wsh');
+                        }
+                    });
+                }
+            }
+        );
+    }
+
+
+
+static getWatchList(userId, callback){
+  pool.query('SELECT watchlist FROM users WHERE id = ?', [userId], (error, results, fields) => {
       if (error) throw error;
       callback(results[0]); 
     });
-}
-
-
-static getUserByEmail(email, callback) {
-  pool.query(
-    'SELECT * FROM users WHERE email = ?',
-    [email],
-    (error, results, fields) => {
-      if (error) throw error;
-      callback(results[0]);
-    }
-  );
 }
 
 

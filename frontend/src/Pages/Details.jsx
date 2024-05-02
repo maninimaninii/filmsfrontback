@@ -6,14 +6,14 @@ import { Suggestions } from '../Components/Suggestions/Suggestions';
 import { Interractions } from '../Components/Interactions/Interractions';
 
 export const Details = () => {
-    const { entiteId, category } = useParams();
+    const { id, category } = useParams();
     const [entite, setEntite] = useState(null); 
 
     useEffect(() => {
 
         const fetchEntiteDetails = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/api/films/${entiteId}`);
+                const response = await fetch(`http://localhost:3000/api/films/${id}`);
                 if (!response.ok) {
                     throw new Error('Erreur lors de la récupération des détails de l\'entité');
                 }
@@ -26,7 +26,7 @@ export const Details = () => {
         };
 
         fetchEntiteDetails(); 
-    }, [entiteId, category]);
+    }, [id, category]);
 
     return (
         <div> 

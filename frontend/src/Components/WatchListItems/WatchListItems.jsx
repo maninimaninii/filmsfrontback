@@ -6,10 +6,14 @@ export const WatchListItems = () => {
   const [watchlist, setWatchlist] = useState([]);
 
   useEffect(() => {
-
     const fetchWatchlist = async () => {
       try {
-        const response = await fetch('http://localhost:3000//api/watchlist'); 
+        const token = localStorage.getItem('token'); 
+        const response = await fetch('http://localhost:3000/api/watchlist', {
+          headers: {
+            'Authorization': `Bearer ${token}` 
+          }
+        }); 
         if (response.ok) {
           const data = await response.json(); 
           setWatchlist(data); 
@@ -20,10 +24,9 @@ export const WatchListItems = () => {
         console.error('Erreur lors de la récupération de la watchlist:', error);
       }
     };
-
   
     fetchWatchlist();
-  }, []); 
+  }, []);
 
   const [films, setFilms] = useState([]);
 

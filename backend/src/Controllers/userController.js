@@ -1,5 +1,5 @@
 const User = require('../models/usermodel');
-
+const requireAuth = require('../middlewares/authMiddleware');
 exports.createUser = (req, res) =>{
     const userData = req.body;
     User.createUser(userData, (result) =>{
@@ -10,27 +10,20 @@ exports.createUser = (req, res) =>{
 
 
 exports.getWatchList = (req, res) => {
-    const {id} = req.session.user.id;
-    User.getWatchList(id, (film) =>{
-      res.json(film);
-    })
-  }
+  const userId = req.userId; 
+  User.getWatchList(userId, (film) => {
+    res.json(film);
+  });
+};
 
 
   exports.loginUser = (req, res) => {
     const { email, password } = req.body;
-    User.getUserByEmail(email, (user) => {
-      if (!user) {
-        res.status(404).json({ message: 'Utilisateur non trouvé' });
-      } else if (user.password !== password) {
-        res.status(401).json({ message: 'Mot de passe incorrect' });
-      } else {
-        req.session.user = user;
-        res.json({ message: 'Connecté avec succès' });
-        console.log(req.session.user.id);
-      }
+    User.loginUser(email, password, (result) => {
+        res.json(result);
+        console.log(result);
     });
-  };
+};
 
 
   exports.addToWatchList = (req, res) =>{
