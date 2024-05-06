@@ -5,12 +5,23 @@ import './CSS/Login.css';
 export const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const [name, setName] = useState('');
+  const [termsAgreed, setTermsAgreed] = useState(false);
   const navigate = useNavigate();
 
   const handleSignUp = async (e) => {
     e.preventDefault();
+
+    if (password !== confirmPassword) {
+      setError('Les mots de passe ne correspondent pas');
+      return; 
+    }
+    if (!termsAgreed) {
+      setError('Veuillez accepter les termes et conditions');
+      return;
+    }
 
     try {
       const response = await fetch('http://localhost:3000/api/add-member', {
@@ -40,14 +51,15 @@ export const SignUp = () => {
             <input type="email" placeholder='votrenom@random.com' value={email} onChange={(e) => setEmail(e.target.value)} />
             <input type="text" placeholder='votrenom' value={name} onChange={(e) => setName(e.target.value)} />
             <input type="password" placeholder='Mot de passe' value={password} onChange={(e) => setPassword(e.target.value)} />
-            <button type="submit">Continuer</button> 
+            <input type="password" placeholder='Confirmer le mot de passe' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+            {error && <p className="error">{error}</p>}
+            <div className='loginagree'>
+              <input type="checkbox" name='' id='' checked={termsAgreed} onChange={(e) => setTermsAgreed(e.target.checked)} />
+              <p>En continuant, j'accepte les termes et conditions</p>
+            </div>
+            <button type="submit" disabled={!termsAgreed}>Continuer</button> 
           </div>
         </form>
-        {error && <p className="error">{error}</p>}
-        <div className='loginagree'>
-          <input type="checkbox" name='' id='' />
-          <p>En continuant, j'accepte les termes et conditions</p>
-        </div>
       </div>
     </div>
   );

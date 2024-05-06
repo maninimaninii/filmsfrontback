@@ -25,3 +25,17 @@ hr{
     transition : 0.4s;
    
 }
+.messg{
+    color: hsl(0, 0%, 80%);
+    margin-left: 20px;
+    text-align: center;
+    font-size: 40px;
+
+}
+
+.messg a{
+    text-decoration: none;
+    color: hsl(0, 0%, 80%);
+    cursor: pointer;
+    font-weight: 600;
+}

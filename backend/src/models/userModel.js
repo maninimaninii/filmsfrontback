@@ -48,7 +48,6 @@ class User {
                                 { expiresIn: '24h' }
                             );
                             callback({ userId: user.id, token });
-                            console.log('wsh');
                         }
                     });
                 }
@@ -67,7 +66,7 @@ static getWatchList(userId, callback){
 
 
 
-static addtToWatchList(userId, filmId, callback){
+static addToWatchList(userId, filmId, callback){
   pool.query(
       'UPDATE users SET watchlist = JSON_ARRAY_APPEND(watchlist, \'$\', ?) WHERE id = ?',
       [filmId, userId],
@@ -77,6 +76,18 @@ static addtToWatchList(userId, filmId, callback){
       }
   )
 }
+
+static removeFromWatchList(userId, filmId, callback) {
+    pool.query(
+        'UPDATE users SET watchlist = IF(JSON_LENGTH(watchlist) > 1, JSON_REMOVE(watchlist, JSON_UNQUOTE(JSON_SEARCH(watchlist, \'one\', ?))), \'[]\') WHERE id = ?',
+        [filmId, userId],
+        (error, results, fields) => {
+            if (error) throw error;
+            callback(results);
+        }
+    );
+}
+
 
 }
 

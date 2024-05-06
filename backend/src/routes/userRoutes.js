@@ -8,6 +8,6 @@ const router = express.Router();
 router.post('/add-member', testController.createUser); 
 router.get('/watchlist',requireAuth,testController.getWatchList); 
 router.post('/login', testController.loginUser); 
-router.post('/watchlistadd',requireAuth,testController.addToWatchList); 
-
+router.post('/watchlist', requireAuth, testController.addToWatchlist);
+router.delete('/watchlist', requireAuth, testController.removeFromWatchlist);
 module.exports= router

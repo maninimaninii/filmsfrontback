@@ -1,5 +1,6 @@
 const User = require('../models/usermodel');
 const requireAuth = require('../middlewares/authMiddleware');
+
 exports.createUser = (req, res) =>{
     const userData = req.body;
     User.createUser(userData, (result) =>{
@@ -10,9 +11,10 @@ exports.createUser = (req, res) =>{
 
 
 exports.getWatchList = (req, res) => {
-  const userId = req.userId; 
-  User.getWatchList(userId, (film) => {
-    res.json(film);
+  const { userId } = req.auth; 
+  User.getWatchList(userId, (watchlist) => {
+    const watchlistObject = JSON.parse(watchlist.watchlist);
+    res.json(watchlistObject);
   });
 };
 
@@ -26,11 +28,22 @@ exports.getWatchList = (req, res) => {
 };
 
 
-  exports.addToWatchList = (req, res) =>{
-    const UserId = req.session.user.id;
-    const{filmId} = req.body;
-    User.addtToWatchList(userId, filmId, (result)=>{
-        res.json(result);
-    });
-}
+exports.addToWatchlist = (req, res) => {
+  const { userId } = req.auth; 
+  const { filmId } = req.body;
+
+  User.addToWatchList(userId, filmId, (result) => {
+    res.json(result);
+  });
+};
+
+
+exports.removeFromWatchlist = (req, res) => {
+  const { userId } = req.auth; 
+  const { filmId } = req.params;
+
+  User.removeFromWatchList(userId, filmId, (result) => {
+    res.json(result);
+  });
+};
 

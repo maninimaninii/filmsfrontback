@@ -1,26 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import './Populaire.css';
 import { Item } from '../Item/Item';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 export const Populaire = () => {
 
   const [films, setFilms] = useState([]);
   const [series, setSeries] = useState([]);
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchFilms = async () => {
       try {
-        const token = localStorage.getItem('token');
-        if (!token) {
-          // Gérer le cas où aucun token n'est trouvé, par exemple rediriger vers la page de connexion
-          return;
-        }
   
         const response = await fetch('http://localhost:3000/api/films', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}` // Inclure le token dans l'en-tête Authorization
           }
         });
         if (!response.ok) {
@@ -35,18 +31,11 @@ export const Populaire = () => {
     };
   
     const fetchSeries = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        if (!token) {
-          
-          return;
-        }
-  
+      try { 
         const response = await fetch('http://localhost:3000/api/series', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}` 
           }
         });
         if (!response.ok) {

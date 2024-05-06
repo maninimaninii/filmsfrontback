@@ -20,7 +20,10 @@ export const Login = () => {
       if (response.ok) {
         const data = await response.json();
         const token = data.token; 
-        localStorage.setItem('token', token); 
+        const tokenExpiration = new Date();
+        tokenExpiration.setHours(tokenExpiration.getHours() + 24); 
+        localStorage.setItem('token', token);
+        localStorage.setItem('tokenExpiration', tokenExpiration);
         navigate('/'); 
       } else {
         setError('Mot de passe ou email incorrect');
