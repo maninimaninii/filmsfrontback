@@ -4,6 +4,7 @@ const cors = require('cors');
 const session = require('express-session');
 const filmRoutes = require('./routes/filmRoutes');
 const userRoutes = require('./routes/userRoutes');
+const listRoutes = require('./routes/listRoutes');
 app.use(express.json());
 
 app.use(session({
@@ -33,5 +34,5 @@ app.use((req, res, next) => {
 
 app.use('/api', filmRoutes);
 app.use('/api',userRoutes);
-
+app.use('/api', listRoutes);
 module.exports = app;

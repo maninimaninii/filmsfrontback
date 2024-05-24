@@ -40,3 +40,13 @@ VALUES
 ('Vikings', 'serie', 'https://cdn.cinematerial.com/p/136x/czkvv8bz/vikings-movie-poster-sm.jpg?v=1456543279', 'Les Vikings nous transportent dans le monde brutal et mystérieux de Ragnar Lothbrok, un guerrier et fermier viking qui aspire à l\'exploration.'),
 ('Dark', 'serie', 'https://cdn.cinematerial.com/p/136x/tlobd1ky/dark-german-movie-poster-sm.jpg?v=1592668499', 'Une saga familiale avec une touche surnaturelle se déroule dans une ville allemande, où la disparition de deux jeunes enfants expose les relations entre quatre familles.'),
 ('Westworld', 'serie', 'https://cdn.cinematerial.com/p/136x/koge9gno/westworld-movie-poster-sm.jpg?v=1584907910', 'Une odyssée sombre raconte les débuts de la conscience artificielle et l\'évolution du péché.');
+
+
+
+
+CREATE TABLE List(
+    list_id INT AUTO_INCREMENT NOT NULL,
+    user_id INT NOT NULL,
+    LISTE TEXT,
+    PRIMARY KEY (list_id), 
+    FOREIGN KEY (user_id) REFERENCES users (id));

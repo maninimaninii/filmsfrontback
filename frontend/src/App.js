@@ -8,6 +8,7 @@ import { Details } from './Pages/Details';
 import { WatchList } from './Pages/WatchList';
 import { Login } from './Pages/Login';
 import { SignUp } from './Pages/Signup';
+import { Listes } from './Pages/Listes';
 
 
 function App(){
@@ -20,7 +21,9 @@ function App(){
     <Route path='/' element={<Acceuil/>}/>
     <Route path='/films' element={ <ListeCat category="films"/> } />
     <Route path='/séries' element={ <ListeCat category="séries"/> } />
+    <Route path='/listes' element={ <Listes/>} />
     <Route path='/details/:id/:category' element={<Details/>}/>
+    <Route path='/detailsliste/:id' element={<DetailsListe/>}/>
     <Route path='/watchlist' element={<WatchList/>}/>
     <Route path='/login' element={<Login/>}/>
     <Route path='/register' element={<SignUp/>}/>
